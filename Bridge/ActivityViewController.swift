@@ -24,20 +24,21 @@ class ActivityViewController:UIViewController {
     @IBOutlet var embededPosterCollectionView: UIView!
     @IBOutlet var cancelButton: UIButton!
     
-//    @IBAction func cancelAction(sender: UIButton) {
-//        let followUp = PFObject(className: "FollowUp")
-//        let activity = PFObject(withoutDataWithClassName: "Activity", objectId: self.activityToBeDisplay?.ID)
-//        followUp["Channel"] = activity
-//        followUp["Follower"] = PFUser.currentUser()
-//        followUp.deleteInBackgroundWithBlock { (ok, error) -> Void in
-//            if error == nil {
-//                self.cancelButton.hidden = true
-//                self.isFollowedUP = false
-//                self.changeTitleForGeneralButton()
-////                NSNotificationCenter.defaultCenter().postNotification(NSNotification(name: "cancelFollowUp", object: nil))
-//            }
-//        }
-//    }
+    @IBAction func cancelAction(sender: UIButton) {
+        let followUp = PFObject(className: "FollowUp")
+        let activity = PFObject(withoutDataWithClassName: "Activity", objectId: self.activityToBeDisplay?.ID)
+        followUp["Channel"] = activity
+        followUp["Follower"] = PFUser.currentUser()
+        followUp.deleteInBackgroundWithBlock { (ok, error) -> Void in
+            println("\(activity.objectId) id:\(PFUser.currentUser().objectId)")
+            if error == nil {
+                self.cancelButton.hidden = true
+                self.isFollowedUP = false
+                self.changeTitleForGeneralButton()
+                NSNotificationCenter.defaultCenter().postNotification(NSNotification(name: "cancelFollowUp", object: nil))
+            }
+        }
+    }
    
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,9 +57,9 @@ class ActivityViewController:UIViewController {
         
         //The tag label
         var tagsToBeShown = ""
-//        for i in self.activityToBeDisplay!.tags! {
-//            tagsToBeShown += " \(i)"
-//        }
+        for i in self.activityToBeDisplay!.tags! {
+            tagsToBeShown += " \(i)"
+        }
         self.activityTagsLabel.text = tagsToBeShown
         
         im?.getDataInBackgroundWithBlock({ (result, error) -> Void in
@@ -98,11 +99,11 @@ class ActivityViewController:UIViewController {
                 self.followButton.setTitle("添加到日历  📅", forState: UIControlState.Normal)
                 self.cancelButton.hidden = false
                 self.isFollowedUP = true
-//                NSNotificationCenter.defaultCenter().postNotification(NSNotification(name: "newFollowUp", object: nil))
-//                
+                NSNotificationCenter.defaultCenter().postNotification(NSNotification(name: "newFollowUp", object: nil))
                 
-//                let vcHandler = VectorHandler()
-//                vcHandler.adjustUserAfterFollowActity(User(newPFUser: PFUser.currentUser()), activity: self.activityToBeDisplay!)
+                
+                let vcHandler = VectorHandler()
+                vcHandler.adjustUserAfterFollowActity(User(newPFUser: PFUser.currentUser()), activity: self.activityToBeDisplay!)
             })
 
         }

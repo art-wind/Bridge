@@ -29,6 +29,7 @@ class ActivityOverViewTableViewController: ParentActivityOverviewTVC {
         loadData()
     }
     func loadData(){
+        self.relatedActivity = [Activity]()
         let logonUser = PFUser.currentUser()
         let query = PFQuery(className: "FollowUp")
         query.whereKey("Follower", equalTo: logonUser)
@@ -127,7 +128,7 @@ class ActivityOverViewTableViewController: ParentActivityOverviewTVC {
             let indexPath = self.tableView.indexPathForCell(sender as ActivityOverViewTableViewCell)!
             activityDetailVC.isFollowedUP = true
             activityDetailVC.activityToBeDisplay = self.relatedActivity[indexPath.row]
-            println(self.relatedActivity[indexPath.row])
+            println(self.relatedActivity[indexPath.row].vector)
         }
     }
     

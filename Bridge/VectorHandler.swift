@@ -9,7 +9,7 @@
 import Foundation
 class VectorHandler {
     let length = Vector().properties.count
-    let adjustRate = 0.01
+    let adjustRate = 0.1
     
     
     func getVector(array:[String])->[Double]{
@@ -45,6 +45,8 @@ class VectorHandler {
     func adjustUserAfterFollowActity(user:User,activity:Activity){
         let vecFromUser = user.vector
         let vecFromActivity = activity.vector!
+        println(vecFromUser )
+        println(vecFromActivity)
         var difference = vectorMinus(array: vecFromActivity, arrayToMinus: vecFromUser)
         let modifiedDiffer = difference.map { (num) -> Double in
             return num * self.adjustRate
@@ -63,6 +65,7 @@ class VectorHandler {
                 println(error)
             } else {
                 user["vector"] = adjustedVector
+                println(adjustedVector)
                 user.saveInBackground()
             }
         }
@@ -84,14 +87,25 @@ class VectorHandler {
     func formalize(vectorToBeFormalized vector:[Double])->[Double]{
         var ret = [Double]()
         let moduleValue = computeModuleValue(vector)
-        ret = vector.map(){
-            return sqrt($0/moduleValue)
+        if moduleValue == 0 {
+
+            for _ in 0..<length {
+                ret.append(0)
+            }
+            return ret
         }
-        return ret
+        else{
+            ret = vector.map(){
+                return sqrt($0/moduleValue)
+            }
+            
+            return ret
+        }
+       
     }
     func vectorMinus(array arr1:[Double],arrayToMinus arr2:[Double])->[Double]{
         if arr1.count != arr2.count{
-            println("Problem for two vector")
+            println("Problem for two vector Minus")
         }
         else{
             var ret = [Double]()
@@ -104,7 +118,7 @@ class VectorHandler {
     }
     func vectorPlus(array arr1:[Double],arrayToPlus arr2:[Double])->[Double]{
         if arr1.count != arr2.count{
-            println("Problem for two vector")
+            println("Problem for two vector Plus" )
         }
         else{
             var ret = [Double]()

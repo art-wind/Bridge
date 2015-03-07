@@ -13,6 +13,7 @@ class User: PFUser,PFSubclassing {
     var nickname:String?
     var ID:String?
     var vector:[Double] = [Double]()
+    var tags:[String]?
     override init(){
         super.init()
         
@@ -30,7 +31,8 @@ class User: PFUser,PFSubclassing {
         else{
             
         }
-//        self.vector = targetUser["vector"] as [Double]
+        self.vector = targetUser["vector"] as [Double]
+        self.tags = targetUser["tags"] as? [String]
         super.init()
     }
     override init!(className newClassName: String!) {

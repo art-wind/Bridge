@@ -344,10 +344,11 @@
 		3376CED91AA34AA800910D82 /* PersonRelationship */ = {
 			isa = PBXGroup;
 			children = (
-				333AA17C1AAAA5F600DB5648 /* ExperienceTableVC.swift */,
+				333AA18C1AAAA7E600DB5648 /* FriendOverviewTableVC.swift */,
 				333AA1791AAAA5DB00DB5648 /* FriendDetailViewController.swift */,
 				333AA1771AAAA5C200DB5648 /* CreateNewExperienceViewController.swift */,
 				333AA1751AAAA5B300DB5648 /* FollowerCollectionVC.swift */,
+				333AA17C1AAAA5F600DB5648 /* ExperienceTableVC.swift */,
 			);
 			name = PersonRelationship;
 			sourceTree = "<group>";
@@ -418,7 +419,6 @@
 			children = (
 				333AA1891AAAA77900DB5648 /* ActivityOverViewTableViewController.swift */,
 				333AA18B1AAAA7E600DB5648 /* CreateActivityViewController.swift */,
-				333AA18C1AAAA7E600DB5648 /* FriendOverviewTableVC.swift */,
 				333AA18D1AAAA7E600DB5648 /* OrganizationActivityViewController.swift */,
 				333AA18E1AAAA7E600DB5648 /* OrganiztionActivityOverviewTVC.swift */,
 				333AA1731AAAA57D00DB5648 /* ActivityViewController.swift */,

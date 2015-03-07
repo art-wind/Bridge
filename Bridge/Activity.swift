@@ -37,6 +37,7 @@ class Activity: PFObject,PFSubclassing {
         self.activityPlace = newPFObject["place"] as String?
         self.tags = newPFObject["tags"] as? [String]
         self.vector = newPFObject["vector"] as? [Double]
+        println("Vec \(self.vector)")
         super.init()
     }
     override init!(className newClassName: String!) {
