@@ -34,7 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
 //        PFPush.handlePush(userInfo)
         let obID = userInfo["id"] as String
-        println("IDD\(obID)" )
+        
         if let num = objectIDForNewMessage[obID]{
             objectIDForNewMessage[obID] = num + 1
         }else{

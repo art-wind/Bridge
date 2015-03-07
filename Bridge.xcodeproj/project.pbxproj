@@ -17,6 +17,8 @@
 		331043401A945BB100093EAF /* buddy.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3310433D1A945BB100093EAF /* buddy.jpg */; };
 		331043411A945BB100093EAF /* running.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3310433E1A945BB100093EAF /* running.jpg */; };
 		331043421A945BB100093EAF /* window.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3310433F1A945BB100093EAF /* window.jpg */; };
+		3315F5FA1AAAD5BF005F7C2E /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3315F5F91AAAD5BF005F7C2E /* RegisterViewController.swift */; };
+		3315F5FC1AAADA9E005F7C2E /* OrganizationLogonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3315F5FB1AAADA9E005F7C2E /* OrganizationLogonViewController.swift */; };
 		3317691A1A9B47FA002EB2F6 /* DialogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 331769191A9B47FA002EB2F6 /* DialogViewController.swift */; };
 		33219CC91AA5684900DE8DFA /* ExperienceTViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33219CC71AA5684900DE8DFA /* ExperienceTViewCell.swift */; };
 		33219CCA1AA5684900DE8DFA /* ExperienceTViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 33219CC81AA5684900DE8DFA /* ExperienceTViewCell.xib */; };
@@ -112,6 +114,8 @@
 		3310433D1A945BB100093EAF /* buddy.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = buddy.jpg; sourceTree = "<group>"; };
 		3310433E1A945BB100093EAF /* running.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = running.jpg; sourceTree = "<group>"; };
 		3310433F1A945BB100093EAF /* window.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = window.jpg; sourceTree = "<group>"; };
+		3315F5F91AAAD5BF005F7C2E /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		3315F5FB1AAADA9E005F7C2E /* OrganizationLogonViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrganizationLogonViewController.swift; sourceTree = "<group>"; };
 		331769191A9B47FA002EB2F6 /* DialogViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DialogViewController.swift; sourceTree = "<group>"; };
 		33219CC71AA5684900DE8DFA /* ExperienceTViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExperienceTViewCell.swift; sourceTree = "<group>"; };
 		33219CC81AA5684900DE8DFA /* ExperienceTViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExperienceTViewCell.xib; sourceTree = "<group>"; };
@@ -327,6 +331,8 @@
 		333AA17F1AAAA63D00DB5648 /* System */ = {
 			isa = PBXGroup;
 			children = (
+				3315F5FB1AAADA9E005F7C2E /* OrganizationLogonViewController.swift */,
+				3315F5F91AAAD5BF005F7C2E /* RegisterViewController.swift */,
 				333AA1801AAAA66100DB5648 /* LogonViewController.swift */,
 			);
 			name = System;
@@ -589,6 +595,7 @@
 				333AA1871AAAA6CE00DB5648 /* ParentActivityOverviewTVC.swift in Sources */,
 				333AA18A1AAAA77900DB5648 /* ActivityOverViewTableViewController.swift in Sources */,
 				337786641A9C0DFA004D0093 /* ActivityOverViewTableViewCell.swift in Sources */,
+				3315F5FC1AAADA9E005F7C2E /* OrganizationLogonViewController.swift in Sources */,
 				33B77DDB1A937689008E70DF /* Bridge.xcdatamodeld in Sources */,
 				333AA1921AAAA7E600DB5648 /* OrganiztionActivityOverviewTVC.swift in Sources */,
 				333AA1981AAAA82A00DB5648 /* Poster.swift in Sources */,
@@ -615,6 +622,7 @@
 				333AA1741AAAA57D00DB5648 /* ActivityViewController.swift in Sources */,
 				333AA1951AAAA80E00DB5648 /* PosterCollectionViewController.swift in Sources */,
 				33B77DD81A937689008E70DF /* AppDelegate.swift in Sources */,
+				3315F5FA1AAAD5BF005F7C2E /* RegisterViewController.swift in Sources */,
 				3317691A1A9B47FA002EB2F6 /* DialogViewController.swift in Sources */,
 				338B1B941AA04CF6008F67A1 /* StartDialogViewController.swift in Sources */,
 				33E7FA6C1A99DBFE005B7A5D /* DateTextField.swift in Sources */,

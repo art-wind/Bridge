@@ -29,7 +29,7 @@ class CreateActivityViewController: UIViewController,
     var durationDatePicker:UIDatePicker! = UIDatePicker()
     var frequencyDatePicker:UIDatePicker! = UIDatePicker()
     @IBOutlet var addPhoto: UIButton!
-    @IBOutlet var categoryTextView: UITextView!
+    @IBOutlet var categoryLabel: UILabel!
     
     @IBOutlet var descriptionTextView: UITextView!
     override func viewDidLoad() {
@@ -129,7 +129,7 @@ class CreateActivityViewController: UIViewController,
     }
     
     //Static properties
-    var imagePickerActionFormTitle = "从何处选取照片"
+    
     var frequencyPickerActionFormTitle = "频率为"
     var displayLabels = [String]()
     @IBAction func clickToSegue(sender: UIButton) {
@@ -189,7 +189,7 @@ class CreateActivityViewController: UIViewController,
         
         
         if selectedCatgories.count == 0 {
-            self.categoryTextView.text = ""
+            self.categoryLabel.text = ""
         }
         else{
             var catsToDisplay:NSMutableAttributedString?
@@ -201,7 +201,7 @@ class CreateActivityViewController: UIViewController,
             for index in 0..<length{
                println("I: \(index)")
                 if selectedCatgories[index] == 1{
-                    stringToBeDisplayed += categories[index]
+                    stringToBeDisplayed += " \(categories[index])"
                     self.tags.append(categories[index])
                     
                 }
@@ -211,14 +211,14 @@ class CreateActivityViewController: UIViewController,
             
             catsToDisplay?.addAttribute(NSForegroundColorAttributeName, value: UIColor.blueColor(), range: NSMakeRange(0, 2))
             //             catsToDisplay?.addAttribute(NSForegroundColorAttributeName, value: UIColor.greenColor(), range: NSMakeRange(3, 5))
-            categoryTextView.attributedText = catsToDisplay
+            categoryLabel.text = stringToBeDisplayed
         }
         
     }
     override func viewWillAppear(animated: Bool) {
         
     }
-    
+    var imagePickerActionFormTitle = "从何处选取照片"
     @IBAction func addPictureAsIcon(sender: UIButton!) {
         var actionForm = UIActionSheet(title: imagePickerActionFormTitle, delegate: self, cancelButtonTitle: "取消", destructiveButtonTitle: nil, otherButtonTitles: "Photo Library","Take a photo")
         actionForm.showInView(self.view)
