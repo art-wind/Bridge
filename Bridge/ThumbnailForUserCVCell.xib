@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="ThumbnailForUserCVCell" customModule="Bridge" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="102" height="141"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="102" height="141"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="IlG-mT-X3B">
+                        <rect key="frame" x="8" y="8" width="86" height="86"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="IlG-mT-X3B" secondAttribute="height" multiplier="1:1" id="qvj-fv-VcJ"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="君君" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ThW-bd-9IH">
+                        <rect key="frame" x="8" y="102" width="86" height="31"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            </view>
+            <constraints>
+                <constraint firstItem="ThW-bd-9IH" firstAttribute="top" secondItem="IlG-mT-X3B" secondAttribute="bottom" constant="8" id="6xj-L1-3MW"/>
+                <constraint firstAttribute="trailing" secondItem="IlG-mT-X3B" secondAttribute="trailing" constant="8" id="75K-zU-Bra"/>
+                <constraint firstAttribute="bottom" secondItem="IlG-mT-X3B" secondAttribute="bottom" constant="47" id="J3L-Pd-yQs"/>
+                <constraint firstItem="IlG-mT-X3B" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="8" id="PcE-Wx-qX6"/>
+                <constraint firstAttribute="trailing" secondItem="ThW-bd-9IH" secondAttribute="trailing" constant="8" id="WNt-VZ-Fgd"/>
+                <constraint firstAttribute="bottom" secondItem="ThW-bd-9IH" secondAttribute="bottom" constant="8" id="fJv-nJ-yBr"/>
+                <constraint firstItem="ThW-bd-9IH" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="8" id="ift-kS-4QI"/>
+                <constraint firstItem="IlG-mT-X3B" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="8" id="rtC-ZU-S2P"/>
+            </constraints>
+            <size key="customSize" width="102" height="141"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="J3L-Pd-yQs"/>
+                </mask>
+            </variation>
+            <variation key="widthClass=compact"/>
+            <connections>
+                <outlet property="iconThumbnail" destination="IlG-mT-X3B" id="zfF-sL-2vz"/>
+                <outlet property="usernameLabel" destination="ThW-bd-9IH" id="Vrp-h2-1bk"/>
+            </connections>
+            <point key="canvasLocation" x="188" y="247.5"/>
+        </collectionViewCell>
+    </objects>
+</document>

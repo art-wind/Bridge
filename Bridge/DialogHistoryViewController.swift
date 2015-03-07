@@ -8,36 +8,158 @@
 
 import UIKit
 
-class DialogHistoryViewController: UITableViewController {
+class DialogHistoryViewController: UITableViewController,UISplitViewControllerDelegate{
     let reuseIdentifier = "Dialog Cell"
-    var dialogues = [
-        "你最近有打算去玩游戏咩？",
-        "你最近有打算去玩游戏咩？你最近有打算去玩游戏咩？",
-        "恩恩好",
-        "你最近有打算去玩游戏咩？你最近有打算去玩游戏咩？你最近有打算去玩游戏咩？你最近有打算去玩游戏咩？",
-        "你最近有打算去玩游戏咩?你最近有打算去玩游戏咩?你最近有打算去玩游戏咩？你最近有打算去玩游戏咩?你最近有打算去玩游戏咩？你最近有打算去玩游戏咩?你最近有打算去玩游戏咩？你最近有打算去玩游戏咩?你最近有打算去玩游戏咩？你最近有打算去玩游戏咩?你最近有打算去玩游戏咩？你最近有打算去玩游戏咩?你最近有打算去玩游戏咩？你最近有打算去玩游戏咩?你最近有打算去玩游戏咩？"
-    ]
+    var dialogIDToBeDisplayed:Dialog?
+    var messagesLocalDB = [Message]()
+    var opponentImage:UIImage = UIImage(named: "defaultIcon")!
+    var computedDialog:Dialog?{
+        get{
+            return dialogIDToBeDisplayed
+        }
+        set{
+            dialogIDToBeDisplayed = newValue
+            loadTheTableViewManually()
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("loadTheTableView:"), name: "newInputMessage", object: nil)
         
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-    self.tableView.registerNib(UINib(nibName: "DialogCell", bundle: nil), forCellReuseIdentifier: reuseIdentifier)
+        
+    
+        self.tableView.registerNib(UINib(nibName: "DialogCell", bundle: nil), forCellReuseIdentifier: reuseIdentifier)
         self.tableView.registerClass(DialogCell.self, forCellReuseIdentifier: reuseIdentifier)
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Compose, target: self, action: Selector("writeMessage:"))
+        loadTheTableViewManually()
+        
     }
-    override func viewWillAppear(animated: Bool) {
-        self.tableView.scrollsToTop = true
+    func loadTheTableView(notification:NSNotification ){
+//        dialogues = [Message]()
+        var queryDialogsFromLocalDB = PFQuery(className: "Message")
+        queryDialogsFromLocalDB.whereKey("participants", containsAllObjectsInArray: [PFUser.currentUser()])
+        queryDialogsFromLocalDB.fromLocalDatastore()
+        queryDialogsFromLocalDB.findObjectsInBackgroundWithBlock { (dialogs, error) -> Void in
+            if error == nil {
+                for obj in dialogs {
+                    let dialog = obj as PFObject
+                }
+                self.tableView.reloadData()
+            }
+        }
     }
+    func loadTheTableViewManually(){
+        self.messagesLocalDB = [Message]()
+        if let id = computedDialog{
+            var queryMessagsFromLocalDB = PFQuery(className: "Message")
+           queryMessagsFromLocalDB.whereKey("dialogID", equalTo:PFObject(withoutDataWithClassName: "Dialog", objectId: computedDialog!.ID))
+           queryMessagsFromLocalDB.addAscendingOrder("sendDate")
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+            println(computedDialog!.ID)
+            queryMessagsFromLocalDB.findObjectsInBackgroundWithBlock { (messages, error) -> Void in
+                if error == nil {
+                    println(messages.count)
+                    for obj in messages {
+                        let message = Message(newPFObject:obj as PFObject)
+                        self.messagesLocalDB.append(message)
+                    }
+                    self.tableView.reloadData()
+                }
+                else{
+                    println("Error")
+                    println(messages.count)
+                }
+            }
+        }
+        else{
+            println("Nothing to have")
+        }
+        if self.messagesLocalDB.count > 0{
+            self.tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: self.messagesLocalDB.count-1), atScrollPosition:UITableViewScrollPosition.Bottom, animated: true)
+        }
+        
     }
-
-    // MARK: - Table view data source
+    //MARK: -Send message
+    @IBAction func writeMessage(sender: UIBarButtonItem) {
+        
+        var alert = UIAlertController(title: "Alert", message: "Message", preferredStyle: UIAlertControllerStyle.Alert)
+        
+        alert.addTextFieldWithConfigurationHandler({(textField: UITextField!) in
+            textField.placeholder = "Enter text:"
+        })
+        
+        
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
+        
+        
+        let sendAction = UIAlertAction(title:"发送"
+            , style: UIAlertActionStyle.Default) { (act) -> Void in
+                let message = alert.textFields?[0] as UITextField
+                let string = message.text
+                self.sendMessage(string)
+        }
+        alert.addAction(sendAction)
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
+    func sendMessage(message:String){
+        let sendDate = NSDate()
+        let content = message
+        let source = PFUser.currentUser()
+        let dialogID =  PFObject(withoutDataWithClassName: "Dialog", objectId: dialogIDToBeDisplayed?.ID)
+        
+        var uploadMessage = PFObject(className: "Message")
+        
+        var dialogQuery = PFQuery(className:"Dialog")
+        dialogQuery.getObjectInBackgroundWithId(self.dialogIDToBeDisplayed?.ID) {
+            (dialog: PFObject!, error: NSError!) -> Void in
+            if error != nil {
+                println(error)
+            } else {
+                dialog["lastMessageTime"] = sendDate
+                dialog["lastMessageContent"] = content
+                dialog.saveInBackgroundWithBlock({ (ok, error) -> Void in
+                    let notificationCenter = NSNotificationCenter.defaultCenter()
+                    
+                    notificationCenter.postNotification(NSNotification(name:"refreshMessageTableView"
+                        , object:nil))
+                    
+                    
+                })
+                
+            }
+        }
+        
+        uploadMessage["dialogID"] = dialogID
+        uploadMessage["source"] = source
+        uploadMessage["content"] = content
+        uploadMessage["sendDate"] = sendDate
+        uploadMessage.saveInBackgroundWithBlock { (success, error) -> Void in
+            if success == true {
+                println("Successfully upload The message")
+                self.loadTheTableViewManually()
+                //Post notification to split view controller 
+                
+                let deviceQuery = PFInstallation.query()
+                let group = self.dialogIDToBeDisplayed?.participants.filter({ (g) -> Bool in
+                    return g != PFUser.currentUser()
+                })
+                
+                deviceQuery.whereKey("currentUser", containedIn: group)
+                let push = PFPush()
+                let data = [
+                    "alert" : "You have a message from \(User(newPFUser: PFUser.currentUser()).nickname!))!",
+                    "badge" : "Increment",
+                    "id":"\(self.dialogIDToBeDisplayed!.ID)"
+                ]
+                push.setQuery(deviceQuery)
+                push.setData(data)
+//                push.setMessage("You have a message from \(User(newPFUser: PFUser.currentUser()).nickname))!")
+                push.sendPushInBackground()
+            }
+        }
+    }
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Potentially incomplete method implementation.
@@ -48,72 +170,27 @@ class DialogHistoryViewController: UITableViewController {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        return 3
+        return messagesLocalDB.count
     }
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier, forIndexPath: indexPath) as DialogCell
         cell.deInitialize()
-       // dialogues[indexPath.row % dialogues.count]
-        var str:String = dialogues[indexPath.row % dialogues.count]
-        println("Relaod:  \(str)")
-        if indexPath.row % 2 == 0{
-             cell.setViews(cell.frame.width,icon: UIImage(named: "icon1")!, messageContent: str, backgroungImage: UIImage(named: "dialog_green")!,isLeft:true)
-        }        else {
-             cell.setViews(cell.frame.width,icon: UIImage(named: "minion")!, messageContent: str, backgroungImage: UIImage(named: "dialog_blue")!,isLeft:false)
+        // dialogues[indexPath.row % dialogues.count]
+        var message:Message = messagesLocalDB[indexPath.row]
+
+        if message.source == PFUser.currentUser(){
+            cell.setViews(cell.frame.width,icon: UIImage(named: "minion")!, messageContent: message.content, backgroungImage: UIImage(named: "dialog_blue")!,isLeft:false)
+        }
+        else{
+            cell.setViews(cell.frame.width,icon: self.opponentImage, messageContent: message.content, backgroungImage: UIImage(named: "dialog_green")!,isLeft:true)
         }
         return cell
     }
-    
+
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-//        println(dialogues[indexPath.row % dialogues.count])
-        return DialogCell.getHeight(dialogues[indexPath.row % dialogues.count],cellWidth:self.tableView.frame.width)
+        return DialogCell.getHeight(messagesLocalDB[indexPath.row].content,cellWidth:self.tableView.frame.width)
     }
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return NO if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return NO if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
-    
-
 }

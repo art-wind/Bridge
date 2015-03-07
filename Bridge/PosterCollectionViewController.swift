@@ -10,14 +10,24 @@ import UIKit
 let reuseIdentifier = "Poster Cell"
 
 class PosterCollectionViewController: UICollectionViewController {
-
+    var posterSource:Activity?
+    var posters = [Poster]()
+    var isNormalUser = true
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Register cell classes
+        let parentVC = self.parentViewController
+        
+            let targetActivity = posterSource
+            var queryThePosters:PFQuery  = PFQuery(className: "Poster")
+//            queryThePosters.whereKey("PosterOf", equalTo: targetActivity)
+            queryThePosters.findObjectsInBackgroundWithBlock({ (results, error) -> Void in
+                println("COUNT: \(results.count)")
+                for result in results {
+                    self.posters.append( Poster(newPFObject:result as PFObject))
+                }
+                self.collectionView?.reloadData()
+            })
+       
         self.collectionView!.registerClass(PosterCellCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         let nib = UINib(nibName: "PosterCellCollectionViewCell", bundle: nil)
         self.collectionView!.registerNib(nib, forCellWithReuseIdentifier: reuseIdentifier)
@@ -47,27 +57,32 @@ class PosterCollectionViewController: UICollectionViewController {
 
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         //#warning Incomplete method implementation -- Return the number of items in the section
-        return 10
+        return isNormalUser ? self.posters.count : self.posters.count+1
     }
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> PosterCellCollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as PosterCellCollectionViewCell
-        if indexPath.row == 0 {
-            cell.poster.image = UIImage(named:"addPhoto_16-9")
-        }
-        else{
-            if let image = UIImage(named:"addPhoto_16-9") {
-                //            println("Image Found \(cell.poster!)")
-                cell.poster.image = image
-                
+        var indexRow = indexPath.row
+        if isNormalUser == false {
+            if indexPath.row == 0 {
+                cell.poster.image = UIImage(named:"addPhoto_16-9")
+                return cell
             }
             else{
-                println("No picture named minioin")
+                indexRow--
             }
-
         }
-        
-//        cell.frame.height = self.collectionView?.frame.height
-//        cell.frame.width =  self.collectionView?.frame.height*9/16
+        let object = self.posters[indexRow]
+        println("Another \(object)")
+        let userImageFile: PFFile = object.image!
+        userImageFile.getDataInBackgroundWithBlock {
+            (imageData: NSData!, error: NSError!) -> Void in
+            if error == nil {
+                cell.poster.image = UIImage(data: imageData)
+            }
+            else{
+                println("No picture for him")
+            }
+        }
        return cell
     }
     // MARK: UICollectionViewDelegate
@@ -88,33 +103,6 @@ class PosterCollectionViewController: UICollectionViewController {
 ////            posterDetailVC.posterToDisplay = cell.poster.image
 //        }
     }
-    /*
-    // Uncomment this method to specify if the specified item should be highlighted during tracking
-    override func collectionView(collectionView: UICollectionView, shouldHighlightItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return true
-    }
-    */
 
-    /*
-    // Uncomment this method to specify if the specified item should be selected
-    override func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    override func collectionView(collectionView: UICollectionView, shouldShowMenuForItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return false
-    }
-
-    override func collectionView(collectionView: UICollectionView, canPerformAction action: Selector, forItemAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) -> Bool {
-        return false
-    }
-
-    override func collectionView(collectionView: UICollectionView, performAction action: Selector, forItemAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) {
-    
-    }
-    */
 
 }

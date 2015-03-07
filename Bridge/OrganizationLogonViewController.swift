@@ -14,20 +14,35 @@ class OrganizationLogonViewController: UIViewController {
     @IBOutlet var logonButton: UIButton!
     @IBOutlet var username: UITextField!
     @IBOutlet var password: UITextField!
-
+    var isPrepared = false
     @IBAction func getBack() {
         self.dismissViewControllerAnimated(true, completion: { () -> Void in
             
         })
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    
+    @IBAction func logonAction(sender: UIButton) {
+        weak var weakSelf = self
+        PFUser.logInWithUsernameInBackground(username.text, password: password.text) { (User, error) -> Void in
+            if User != nil {
+                self.isPrepared = true
+                weakSelf?.performSegueWithIdentifier("Logon", sender: sender)
+            }
+        }
     }
-    */
+    
+    override func shouldPerformSegueWithIdentifier(identifier: String?, sender: AnyObject?) -> Bool {
+        if identifier == "Logon" {
+            if self.isPrepared {
+              return true
+            }
+            else{
+                return false
+            }
+        }
+        else{
+            return super.shouldPerformSegueWithIdentifier(identifier, sender: sender)
+        }
+    }
 
 }

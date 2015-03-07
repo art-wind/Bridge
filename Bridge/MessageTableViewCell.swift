@@ -13,11 +13,15 @@ class MessageTableViewCell: UITableViewCell {
     @IBOutlet var contentLabel: UILabel!
     @IBOutlet var timeLabel: UILabel!
     
+    @IBOutlet var badgeIcon: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
+        let height = self.badgeIcon.bounds.height
+        self.badgeIcon.layer.cornerRadius = height/2
+        self.badgeIcon.layer.masksToBounds = true
+        self.badgeIcon.hidden = true
         // Initialization code
     }
-
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
@@ -32,10 +36,23 @@ class MessageTableViewCell: UITableViewCell {
             self.timeLabel.text = tmpTime
         }
     }
+    func setBadgeValue(number:Int){
+        if number > 0
+        {
+            self.badgeIcon.text = "\(number)"
+            self.badgeIcon.hidden = false
+        }
+        else{
+            self.badgeIcon.hidden = true
+        }
+        
+    }
     func setImageIcon(url:NSString){
         self.imageIcon.image = UIImage(named: url)
         self.imageIcon.layer.cornerRadius = 8
         self.imageIcon.layer.masksToBounds = true
+        
+        
     }
 
 }

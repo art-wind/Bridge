@@ -14,15 +14,14 @@ class DialogCell: UITableViewCell {
     @IBOutlet var messageBackgroundView: UIImageView!
     @IBOutlet var messageContentTextView: UITextView!
     var maximumSize:CGSize = CGSize(width: 150, height: 1000)
-    var padding:CGFloat = 10
+    let padding:CGFloat = 20
     var exactSize:CGSize = CGSize(width: 0, height: 0)
     let magicNumber:CGFloat = 50
-   
-            let e = 10
+    let paddingInset:CGFloat = 5
     func deInitialize() {
         iconImageView?.removeFromSuperview()
         messageBackgroundView?.removeFromSuperview()
-         messageContentTextView?.removeFromSuperview()
+        messageContentTextView?.removeFromSuperview()
     }
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -49,7 +48,7 @@ class DialogCell: UITableViewCell {
         //If left
         self.iconImageView.image = icon
         self.iconImageView.frame.size = CGSize(width: magicNumber, height: magicNumber)
-
+        
         
         messageContentTextView.text = messageContent
         messageContentTextView.font = UIFont.systemFontOfSize(18)
@@ -57,6 +56,8 @@ class DialogCell: UITableViewCell {
         exactSize = messageContentTextView.sizeThatFits(maximumSize)
         self.messageContentTextView.allowsEditingTextAttributes = false
         self.messageContentTextView.backgroundColor = UIColor.clearColor()
+        self.messageContentTextView.editable = false
+        self.messageContentTextView.selectable = false
         
         
         var new_image = backgroungImage.resizableImageWithCapInsets(UIEdgeInsets(top: 30, left: 30, bottom: 15, right: 30), resizingMode: UIImageResizingMode.Stretch)
@@ -77,7 +78,7 @@ class DialogCell: UITableViewCell {
        
         else{
             let endX = self.frame.width
-        
+            println("EndX \(endX)")
             self.iconImageView.frame.origin.x = endX - padding - magicNumber
             self.iconImageView.frame.origin.y = padding
             self.messageContentTextView.frame = CGRect(origin: CGPoint(x: endX-(3*padding + magicNumber+exactSize.width), y: padding),
@@ -108,7 +109,7 @@ class DialogCell: UITableViewCell {
        textView.text = inputString
        textView.font = UIFont.systemFontOfSize(18)
 //        print("\(self.e)")
-       return max(textView.sizeThatFits(CGSize(width: cellWidth*0.5, height: 1000)).height + 20 ,70)
+       return max(textView.sizeThatFits(CGSize(width: cellWidth*0.5, height: 1000)).height + 40 ,70)
     }
     
     

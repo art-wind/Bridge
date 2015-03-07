@@ -7,48 +7,33 @@
 //
 
 import UIKit
-
+import Parse
 class CreateActivityViewController: UIViewController,
-        UITextFieldDelegate,UIActionSheetDelegate,
-        UIImagePickerControllerDelegate,UINavigationControllerDelegate
-    {
-
+    UITextFieldDelegate,UIActionSheetDelegate,
+    UIImagePickerControllerDelegate,UINavigationControllerDelegate
+{
+    
     @IBOutlet var formView: UIView!
     @IBOutlet var activityName: UITextField!
     @IBOutlet var activityPlace: UITextField!
     @IBOutlet var startDate: UITextField!
     @IBOutlet var duration: UITextField!
     @IBOutlet var frequency: UITextField!
+    @IBOutlet var spinner: UIActivityIndicatorView!
     
     @IBOutlet var activityIcon: UIImageView!
+    
+    var vector:[Int]?
+    var tags:[String] = [String]()
     var startDatePicker:UIDatePicker! = UIDatePicker()
     var durationDatePicker:UIDatePicker! = UIDatePicker()
     var frequencyDatePicker:UIDatePicker! = UIDatePicker()
-    var pickerMapping = ["start":false,"duration":false,"frequency":false]
-    var inTheMiddleOfEdittingTime:Bool = false
     @IBOutlet var addPhoto: UIButton!
     @IBOutlet var categoryTextView: UITextView!
     
-    @IBAction func clickToSaveTheDetails(sender: AnyObject) {
-    }
-    
-    //Static properties
-    var imagePickerActionFormTitle = "从何处选取照片"
-    var frequencyPickerActionFormTitle = "频率为"
-    var displayLabels = [String]()
-    @IBAction func clickToSegue(sender: UIButton) {
-        performSegueWithIdentifier("Choose category", sender: sender)
-    }
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "Choose category" {
-            println("Segue to another choice Tabel")
-        }
-    }
+    @IBOutlet var descriptionTextView: UITextView!
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.navigationItem.rightBarButtonItem = doneBarItem
-        
-        
         formView.layer.cornerRadius = 15
         formView.layer.masksToBounds = true
         
@@ -66,7 +51,7 @@ class CreateActivityViewController: UIViewController,
         durationDatePicker.minuteInterval = 15
         durationDatePicker.addTarget(self, action: Selector("updateTextFieldForDuration:"), forControlEvents:UIControlEvents.ValueChanged)
         
-
+        
         
         
         //Add the controller Tool bars for those date controller
@@ -85,16 +70,80 @@ class CreateActivityViewController: UIViewController,
         duration.inputView = durationDatePicker
         frequency.inputView = nil
         
-
-        
-
-        
-        
-        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: UIBarButtonItemStyle.Done, target: self, action: "clickToSaveTheDetails:")
         // Do any additional setup after loading the view.
     }
+    
+    @IBAction func clickToSaveTheDetails(sender: UIBarButtonItem!) {
+        self.spinner.startAnimating()
+        var a = Activity()
+        
+        var activity = PFObject(className:"Activity")
+        
+        println(activity)
+        
+        
+        activity["name"] = activityName.text
+        activity["startDate"] = startDatePicker.date
+        activity["createdBy"] = PFUser.currentUser()
+        activity["place"] = activityPlace.text
+        activity["duration"] = durationDatePicker.date
+        activity["frequency"] = frequency.text
+        activity["description"] = descriptionTextView.text
+        let thumbnail = Thumbnail.thumbnailFromImage(activityIcon.image!,scaledToFillSize: CGSize(width: 300,height: 300))
+        let imageData = UIImagePNGRepresentation(thumbnail)
+        let imageFile = PFFile(name:"unique.png", data:imageData)
+        
+        activity["icon"] = imageFile
+        activity["tags"] = self.tags
+        
+        let vectorHandler = VectorHandler()
+        var doubleVector = self.vector?.map({ (r) -> Double in
+//            return r as Double
+            if r == 1 {
+                return 1.0
+            }
+            else{
+                return 0
+            }
+            
+            
+        })
+        activity["vector"] = vectorHandler.formalize(vectorToBeFormalized: doubleVector!)
+        
+        
+        activity.pinInBackground()
+        activity.saveInBackgroundWithBlock {
+            (success: Bool, error: NSError!) -> Void in
+            if (success) {
+                println("SuccesslySave the acitivity")
+                self.spinner.stopAnimating()
+                self.navigationController?.popViewControllerAnimated(true)
+            } else {
+                // There was a problem, check error.description
+            }
+            
+        }
+        println(activity)
+        //
+    }
+    
+    //Static properties
+    var imagePickerActionFormTitle = "从何处选取照片"
+    var frequencyPickerActionFormTitle = "频率为"
+    var displayLabels = [String]()
+    @IBAction func clickToSegue(sender: UIButton) {
+        performSegueWithIdentifier("Choose category", sender: sender)
+    }
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "Choose category" {
+            println("Segue to another choice Tabel")
+        }
+    }
+    
     func showFrequecyActionSheet(sender:UITextField!)
     {
+        self.frequency.resignFirstResponder()
         var actionForm = UIActionSheet(title: frequencyPickerActionFormTitle, delegate: self, cancelButtonTitle: "取消", destructiveButtonTitle: nil, otherButtonTitles: "每天","每周","每月")
         actionForm.showInView(self.view)
     }
@@ -124,25 +173,21 @@ class CreateActivityViewController: UIViewController,
         let date = durationDatePicker.date
         let formatter = NSDateFormatter()
         formatter.dateFormat = "HH 小时 mm分钟"
-//        duration.text = "\(date.)"
         duration.text = formatter.stringFromDate(date)
     }
     
     
     @IBAction func enterDate(sender: UITextField) {
         sender.backgroundColor = UIColor.yellowColor()
-        if inTheMiddleOfEdittingTime {
-//            sender.resignFirstResponder()
-            inTheMiddleOfEdittingTime = false
-        }
-        else{
-            inTheMiddleOfEdittingTime  = true
-        }
     }
     
     @IBAction func unwindFromCategoryVC(segue:UIStoryboardSegue){
         let fromVC = segue.sourceViewController as CategoryTableViewController
         var selectedCatgories = fromVC.selectedCategories
+        self.vector = fromVC.selectedCategories
+        var categories = fromVC.categories
+        
+        
         if selectedCatgories.count == 0 {
             self.categoryTextView.text = ""
         }
@@ -151,13 +196,21 @@ class CreateActivityViewController: UIViewController,
             var seperateIndex = [Int]()
             var index = 0
             var stringToBeDisplayed:String = ""
-            for category in selectedCatgories {
-                stringToBeDisplayed += category
+            var length = categories.count
+             println("L: \(length)")
+            for index in 0..<length{
+               println("I: \(index)")
+                if selectedCatgories[index] == 1{
+                    stringToBeDisplayed += categories[index]
+                    self.tags.append(categories[index])
+                    
+                }
             }
+            
             catsToDisplay = NSMutableAttributedString(string: stringToBeDisplayed)
             
             catsToDisplay?.addAttribute(NSForegroundColorAttributeName, value: UIColor.blueColor(), range: NSMakeRange(0, 2))
-//             catsToDisplay?.addAttribute(NSForegroundColorAttributeName, value: UIColor.greenColor(), range: NSMakeRange(3, 5))
+            //             catsToDisplay?.addAttribute(NSForegroundColorAttributeName, value: UIColor.greenColor(), range: NSMakeRange(3, 5))
             categoryTextView.attributedText = catsToDisplay
         }
         
@@ -200,7 +253,7 @@ class CreateActivityViewController: UIViewController,
             }
             
         }
-       
+        
         
     }
     
@@ -208,10 +261,8 @@ class CreateActivityViewController: UIViewController,
     func imagePickerController(picker: UIImagePickerController!, didFinishPickingImage image: UIImage!, editingInfo: [NSObject : AnyObject]!) {
         
         self.dismissViewControllerAnimated(true){}
-        println("sadsad")
-        
         self.activityIcon.image = image
-//        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+        //        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
     }
     
 }

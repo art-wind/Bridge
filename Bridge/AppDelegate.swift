@@ -8,18 +8,42 @@
 
 import UIKit
 import CoreData
-
+import Parse
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    var objectIDForNewMessage = [String:Int]()
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
+        let userNotificationTypes = (UIUserNotificationType.Alert | UIUserNotificationType.Badge | UIUserNotificationType.Sound)
+        
+        let settings = UIUserNotificationSettings(forTypes: userNotificationTypes, categories: nil)
+        application.registerUserNotificationSettings(settings)
+        application.registerForRemoteNotifications()
+        
+        Parse.enableLocalDatastore()
+        Parse.setApplicationId("s7kkV0juCqVzSjmoqqHYs1yNWZjjAC4xD56j5bmX", clientKey: "kRlJPxYtUW5qKmmGUszDBq3gHzgrjjnN7El6Dbqr")
         return true
     }
-
+    func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
+        let installation = PFInstallation.currentInstallation()
+        installation.setDeviceTokenFromData(deviceToken)
+        installation.saveInBackground()
+    }
+    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
+//        PFPush.handlePush(userInfo)
+        let obID = userInfo["id"] as String
+        println("IDD\(obID)" )
+        if let num = objectIDForNewMessage[obID]{
+            objectIDForNewMessage[obID] = num + 1
+        }else{
+             objectIDForNewMessage[obID] = 1
+        }
+        let defaultNotiCenter = NSNotificationCenter.defaultCenter()
+        defaultNotiCenter.postNotificationName("newMessageIncoming", object: self, userInfo: userInfo)
+    }
+    
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
