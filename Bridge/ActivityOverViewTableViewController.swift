@@ -123,7 +123,6 @@ class ActivityOverViewTableViewController: ParentActivityOverviewTVC {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier   == "Show Activity Detail" {
-            //            if segue.destinationViewController
             let activityDetailVC =  segue.destinationViewController as ActivityViewController
             let indexPath = self.tableView.indexPathForCell(sender as ActivityOverViewTableViewCell)!
             activityDetailVC.isFollowedUP = true
