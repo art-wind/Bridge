@@ -27,5 +27,11 @@ class ActivityOverViewTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    func setTime(date:NSDate){
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "MM/dd HH:mm"
+        let timeString = dateFormatter.stringFromDate(date)
+        self.timeLabel.text = timeString
+    }
     
 }

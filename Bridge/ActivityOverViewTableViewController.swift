@@ -33,6 +33,7 @@ class ActivityOverViewTableViewController: ParentActivityOverviewTVC {
         let logonUser = PFUser.currentUser()
         let query = PFQuery(className: "FollowUp")
         query.whereKey("Follower", equalTo: logonUser)
+        query.addDescendingOrder("startDate")
         query.findObjectsInBackgroundWithBlock {(results, error) -> Void in
             self.recordsToBeFeteched = results.count
             println("Length:  \(self.recordsToBeFeteched)")
@@ -42,6 +43,7 @@ class ActivityOverViewTableViewController: ParentActivityOverviewTVC {
                 object.fetchInBackgroundWithBlock({(retAct, error) -> Void in
 //                    println(retAct)
                     self.relatedActivity.append(Activity(newPFObject: retAct as PFObject))
+                    
                     self.recordsToBeFeteched--
                     self.reloadDataIfNeeded()
                 })
@@ -58,7 +60,7 @@ class ActivityOverViewTableViewController: ParentActivityOverviewTVC {
         cell.activityPlaceLabel.text = activity.activityPlace
         
         
-        cell.timeLabel.text = "\(activity.startDate)"
+        cell.setTime(activity.startDate)
         cell.activityDescriptionLabel.text = activity.activityDescription
         
         let im = activity.icon as PFFile?
@@ -101,8 +103,13 @@ class ActivityOverViewTableViewController: ParentActivityOverviewTVC {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
+        //var list: [Activity] =
+    
+        var tmp = self.relatedActivity.sorted {
+            return $0.startDate.timeIntervalSince1970 < $1.startDate.timeIntervalSince1970
+        }
+        self.relatedActivity = tmp
         return self.relatedActivity.count
-//        return 0
     }
     
     

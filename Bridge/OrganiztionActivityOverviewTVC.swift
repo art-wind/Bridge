@@ -11,6 +11,7 @@ import UIKit
 class OrganiztionActivityOverviewTVC: ParentActivityOverviewTVC {
 
     var reuseIdentifier = "Activity Overview Cell"
+    var activityPropertyForSegue:Activity?
     //    var testObject:[PFObject] = [PFObject]()
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
@@ -97,18 +98,16 @@ class OrganiztionActivityOverviewTVC: ParentActivityOverviewTVC {
     
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let cell = self.tableView.cellForRowAtIndexPath(indexPath) as ActivityOverViewTableViewCell
-        
+        self.activityPropertyForSegue = self.relatedActivity[indexPath.row]
+        println(self.activityPropertyForSegue?.ID)
         performSegueWithIdentifier("Show Activity Detail", sender: self)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier   == "Show Activity Detail" {
             //            if segue.destinationViewController
-            let activityDetailVC =  segue.destinationViewController as ActivityViewController
-            let indexPath = self.tableView.indexPathForCell(sender as ActivityOverViewTableViewCell)!
-            activityDetailVC.activityToBeDisplay =
-                self.relatedActivity[0]
+            let activityDetailVC =  segue.destinationViewController as OrganizationActivityViewController
+            activityDetailVC.activityToBeDisplay = self.activityPropertyForSegue
             //indexPath.row
             println(index)
         }

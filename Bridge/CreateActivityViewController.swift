@@ -36,8 +36,10 @@ class CreateActivityViewController: UIViewController,
         super.viewDidLoad()
         formView.layer.cornerRadius = 15
         formView.layer.masksToBounds = true
-        
-        
+        self.categoryLabel.layer.cornerRadius = 5
+        self.categoryLabel.layer.masksToBounds = true
+        self.descriptionTextView.layer.cornerRadius = 8
+        self.descriptionTextView.layer.masksToBounds = true
         
         //Initialize the date Pickers
         startDatePicker.datePickerMode = UIDatePickerMode.DateAndTime
@@ -57,9 +59,9 @@ class CreateActivityViewController: UIViewController,
         //Add the controller Tool bars for those date controller
         var controlToolBoorForDatePicker = UIToolbar(frame: CGRect(origin:CGPoint(x: 0, y: 0), size: CGSize(width: self.view.frame.width, height: 40)))
         
-        var cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Bordered, target: self, action: Selector("dismissTheDatePicker:"))
-        var doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action: nil)
-        controlToolBoorForDatePicker.items = [cancelButton,doneButton]
+        
+        var doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action:Selector("dismissTheDatePicker:"))
+        controlToolBoorForDatePicker.items = [doneButton]
         startDate.inputAccessoryView = controlToolBoorForDatePicker
         duration.inputAccessoryView = controlToolBoorForDatePicker
         frequency.inputAccessoryView = controlToolBoorForDatePicker

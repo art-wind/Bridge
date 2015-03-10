@@ -31,17 +31,31 @@ class VectorHandler {
         }
         return formalize(vectorToBeFormalized: ret)
     }
-    func computeSimilarity(user:User,activity:Activity)->Double
+    class func computeSimilarity(user:User,activity:Activity)->Double
     {
         var ret = 0.0
         let vecFromUser = user.vector
         let vecFromActivity = activity.vector!
-        
+        let length = Vector().properties.count
+        println(" \(vecFromUser) \(vecFromActivity)")
         for i in 0..<length{
             ret += vecFromUser[i] * vecFromActivity[i]
         }
         return ret
     }
+    class func computeUserSimilarity(user:User,anotherUser:User)->Double
+    {
+        var ret = 0.0
+        let vecFromUser = user.vector
+        let vecFromAnotherUser = anotherUser.vector
+        let length = Vector().properties.count
+        for i in 0..<length{
+            ret += vecFromUser[i] * vecFromAnotherUser[i]
+        }
+        return ret
+    }
+    
+    
     func adjustUserAfterFollowActity(user:User,activity:Activity){
         let vecFromUser = user.vector
         let vecFromActivity = activity.vector!

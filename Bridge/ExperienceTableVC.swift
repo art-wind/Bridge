@@ -32,26 +32,30 @@ class ExperienceTableVC: UITableViewController {
         
         
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
     // MARK: - Table view data source
-
+    
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Potentially incomplete method implementation.
         // Return the number of sections.
         return 1
     }
-
+    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
+        var tmp = self.experiencelList.sorted {
+            return $0.sendDate!.timeIntervalSince1970 < $1.sendDate!.timeIntervalSince1970
+        }
+        self.experiencelList = tmp
         return self.experiencelList.count
     }
-
+    
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(cellReuseIdentifier, forIndexPath: indexPath) as ExperienceTViewCell
@@ -59,7 +63,8 @@ class ExperienceTableVC: UITableViewController {
         cell.titleLabel.text = experience.title
         cell.bodyLabel.text = experience.body
         cell.voteButton.setTitle("\(experience.voted)", forState: UIControlState.Normal)
-        cell.timeLabel.text = "\(experience.sendDate!)"
+        
+        cell.setTime(experience.sendDate!)
         cell.activityIcon.image = UIImage(named: "defaultActivityIcon")?
         let relatedActivity = experience.relatedActivity
         cell.activityNameLabel.text = relatedActivity?.activityName
@@ -73,18 +78,18 @@ class ExperienceTableVC: UITableViewController {
         })
         return cell
     }
-
-
-
-
+    
+    
+    
+    
     /*
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
     }
     */
-
+    
 }

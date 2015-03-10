@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
@@ -18,13 +19,17 @@
                         <rect key="frame" x="8" y="8" width="40" height="40"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="40" id="Bem-0P-EfX"/>
+                            <constraint firstAttribute="width" secondItem="VrR-ev-hwJ" secondAttribute="height" multiplier="1:1" id="b8d-12-SFI"/>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="40" id="hGc-7S-dpf"/>
                             <constraint firstAttribute="width" constant="40" id="rPB-TO-Dyy"/>
                             <constraint firstAttribute="width" constant="40" id="wUq-dz-KL5"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="Bem-0P-EfX"/>
+                                <exclude reference="hGc-7S-dpf"/>
                                 <exclude reference="rPB-TO-Dyy"/>
+                                <exclude reference="wUq-dz-KL5"/>
                             </mask>
                         </variation>
                     </imageView>

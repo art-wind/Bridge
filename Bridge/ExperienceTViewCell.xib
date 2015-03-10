@@ -42,16 +42,8 @@
                         <color key="textColor" red="0.0" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1od-wo-0F0">
-                        <rect key="frame" x="151" y="45" width="447" height="136"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </string>
-                        <color key="textColor" red="0.40000000596046448" green="0.40000000596046448" blue="0.40000000596046448" alpha="1" colorSpace="calibratedRGB"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                    </textView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8SD-45-RFU">
-                        <rect key="frame" x="606" y="47" width="154" height="33"/>
+                        <rect key="frame" x="652" y="47" width="63" height="33"/>
                         <color key="backgroundColor" red="0.29803922772407532" green="0.73333334922790527" blue="0.97254908084869385" alpha="1" colorSpace="deviceRGB"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <state key="normal" title="👍赞">
@@ -65,11 +57,21 @@
                         <color key="textColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1od-wo-0F0">
+                        <rect key="frame" x="151" y="45" width="493" height="136"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </string>
+                        <color key="textColor" red="0.40000000596046448" green="0.40000000596046448" blue="0.40000000596046448" alpha="1" colorSpace="calibratedRGB"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                    </textView>
                 </subviews>
                 <constraints>
                     <constraint firstItem="Pav-3i-Vmg" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="0Bl-Gg-Xiv"/>
+                    <constraint firstItem="8SD-45-RFU" firstAttribute="centerX" secondItem="Pav-3i-Vmg" secondAttribute="centerX" constant="0.5" id="3xp-lh-7GR"/>
                     <constraint firstAttribute="bottomMargin" secondItem="1od-wo-0F0" secondAttribute="bottom" constant="-1.5" id="9Jk-As-0p0"/>
                     <constraint firstItem="Pav-3i-Vmg" firstAttribute="leading" secondItem="8SD-45-RFU" secondAttribute="leading" id="BV5-3c-iBi"/>
+                    <constraint firstItem="8SD-45-RFU" firstAttribute="width" secondItem="Pav-3i-Vmg" secondAttribute="height" multiplier="63:23" id="FwO-Kl-tNK"/>
                     <constraint firstItem="8SD-45-RFU" firstAttribute="leading" secondItem="1od-wo-0F0" secondAttribute="trailing" constant="8" symbolic="YES" id="Hlz-ca-6ZA"/>
                     <constraint firstItem="YMz-bF-5mW" firstAttribute="leading" secondItem="D7W-Lj-Vmn" secondAttribute="trailing" constant="8" symbolic="YES" id="Ifx-k6-i9t"/>
                     <constraint firstItem="D2z-5k-k4l" firstAttribute="top" secondItem="D7W-Lj-Vmn" secondAttribute="bottom" constant="7" id="Lam-3l-SPW"/>
@@ -77,6 +79,7 @@
                     <constraint firstItem="8SD-45-RFU" firstAttribute="top" secondItem="Pav-3i-Vmg" secondAttribute="bottom" constant="8" symbolic="YES" id="OeQ-hk-5g2"/>
                     <constraint firstAttribute="bottomMargin" secondItem="D7W-Lj-Vmn" secondAttribute="bottom" constant="36.5" id="R8b-dU-r3b"/>
                     <constraint firstItem="Pav-3i-Vmg" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="8" id="VyJ-VB-bTG"/>
+                    <constraint firstItem="8SD-45-RFU" firstAttribute="leading" secondItem="1od-wo-0F0" secondAttribute="trailing" constant="8" id="X4r-AJ-9Gh"/>
                     <constraint firstItem="Pav-3i-Vmg" firstAttribute="trailing" secondItem="8SD-45-RFU" secondAttribute="trailing" id="ZY6-mf-NyD"/>
                     <constraint firstItem="D7W-Lj-Vmn" firstAttribute="top" secondItem="YMz-bF-5mW" secondAttribute="top" id="Zc3-eN-d2l"/>
                     <constraint firstItem="D7W-Lj-Vmn" firstAttribute="width" secondItem="D2z-5k-k4l" secondAttribute="width" id="f9c-SW-HKB"/>
@@ -92,6 +95,9 @@
                         <exclude reference="R8b-dU-r3b"/>
                         <exclude reference="Zc3-eN-d2l"/>
                         <exclude reference="tZt-Vf-e9k"/>
+                        <exclude reference="BV5-3c-iBi"/>
+                        <exclude reference="ZY6-mf-NyD"/>
+                        <exclude reference="Hlz-ca-6ZA"/>
                     </mask>
                 </variation>
             </tableViewCellContentView>

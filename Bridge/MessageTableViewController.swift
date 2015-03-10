@@ -26,12 +26,18 @@ class MessageTableViewController: UITableViewController,UIApplicationDelegate{
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("loadTheTableData:"), name: "refreshMessageTableView", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("redDotToAlert:"), name: "newMessageIncoming", object: nil)
         
+        
     }
     func redDotToAlert(sender:NSNotification!)
     {
         
         self.newMessages = appDelegate.objectIDForNewMessage
-        println(self.newMessages)
+        var totoalBadges = 0
+        for (_,index) in self.newMessages {
+            totoalBadges += index
+        }
+        println(totoalBadges)
+        self.tabBarItem.badgeValue = "\(totoalBadges)"
         loadData()
     }
     
@@ -129,7 +135,7 @@ class MessageTableViewController: UITableViewController,UIApplicationDelegate{
                 cell.timeLabel.text = dateFormmatter.stringFromDate(date)
             }
             else{
-                dateFormmatter.dateFormat = "HH:mm"
+                dateFormmatter.dateFormat = "hh:mm"
                 cell.timeLabel.text = dateFormmatter.stringFromDate(date)
             }
         }

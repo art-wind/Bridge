@@ -149,13 +149,12 @@ class DialogHistoryViewController: UITableViewController,UISplitViewControllerDe
                 deviceQuery.whereKey("currentUser", containedIn: group)
                 let push = PFPush()
                 let data = [
-                    "alert" : "You have a message from \(User(newPFUser: PFUser.currentUser()).nickname!))!",
+                    "alert" : "You have a message from \(User(newPFUser: PFUser.currentUser()).nickname!) !",
                     "badge" : "Increment",
                     "id":"\(self.dialogIDToBeDisplayed!.ID)"
                 ]
                 push.setQuery(deviceQuery)
                 push.setData(data)
-//                push.setMessage("You have a message from \(User(newPFUser: PFUser.currentUser()).nickname))!")
                 push.sendPushInBackground()
             }
         }

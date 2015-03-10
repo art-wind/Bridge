@@ -18,14 +18,24 @@ class ExperienceTViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        
         // Initialization code
+        self.activityIcon.layer.cornerRadius = 5
+        self.activityIcon.layer.masksToBounds = true
+        self.voteButton.layer.cornerRadius = 3
+        self.voteButton.layer.masksToBounds = true
+        
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    func setTime(date:NSDate){
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "MM/dd hh:mm"
+        let timeString = dateFormatter.stringFromDate(date)
+        self.timeLabel.text = timeString
     }
     
 }

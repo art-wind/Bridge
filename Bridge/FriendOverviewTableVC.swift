@@ -16,8 +16,15 @@ class FriendOverviewTableVC: UITableViewController{
         super.viewDidLoad()
         let nib = UINib(nibName: NibClassName, bundle: nil)
         self.tableView.registerNib(nib, forCellReuseIdentifier: resuseCellIdentifier)
-//        self.tableView.registerClass(MessageCell.self, forCellReuseIdentifier: resuseCellIdentifier)
+        //        self.tableView.registerClass(MessageCell.self, forCellReuseIdentifier: resuseCellIdentifier)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("loadData"), name: "newFriendship", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("loadData"), name: "deleteFriendship", object: nil)
+        loadDataManually()
         
+        
+    }
+    func loadDataManually(){
+        self.friendsList = [User]()
         let currentUser = PFUser.currentUser()
         var friendQuery = PFQuery(className: "Friendship")
         friendQuery.whereKey("source", equalTo: currentUser)
@@ -30,24 +37,25 @@ class FriendOverviewTableVC: UITableViewController{
             }
             self.tableView.reloadData()
         }
-        
-        
     }
-
+    func loadData(sender:AnyObject?){
+        loadDataManually()
+    }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
     // MARK: - Table view data source
-
+    
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Potentially incomplete method implementation.
         // Return the number of sections.
         return 1
     }
-
+    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
@@ -83,8 +91,10 @@ class FriendOverviewTableVC: UITableViewController{
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "Check Detail"{
             var friendDetailVC = segue.destinationViewController as FriendDetailViewController
-            //childViewControllers[0]
+            
             friendDetailVC.relatedUser =  self.seguePropertyOfFriend
+            friendDetailVC.doesHaveFriendShip = true
+            friendDetailVC.isSureAboutFriendship = true
         }
     }
 }

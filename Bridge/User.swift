@@ -25,7 +25,20 @@ class User: PFUser,PFSubclassing {
         self.ID = newPFUser.objectId
         println(self.nickname)
         if let im = targetUser["icon"] as? PFFile {
+            self.imageIcon = im
+        }
+        else{
             
+        }
+        self.vector = targetUser["vector"] as [Double]
+        self.tags = targetUser["tags"] as? [String]
+        super.init()
+    }
+    init(newPFObject:PFObject){
+        let targetUser = newPFObject.fetchIfNeeded() as PFObject
+        self.nickname = targetUser["nickname"] as String?
+        self.ID = newPFObject.objectId
+        if let im = targetUser["icon"] as? PFFile {
             self.imageIcon = im
         }
         else{

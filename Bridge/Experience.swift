@@ -15,9 +15,15 @@ class Experience: PFObject,PFSubclassing {
     var body:String?
     var relatedActivity:Activity?
     var sendDate:NSDate?
-    
+    var uploadedBy:User?
     init(newPFObject:PFObject){
         self.ID = newPFObject.objectId
+        
+        let relatedUser = newPFObject["uploadedBy"] as? PFUser
+        if let fetchedUser = relatedUser?.fetchIfNeeded(){
+            self.uploadedBy = User(newPFObject: fetchedUser)
+        }
+        
         self.title = newPFObject["title"] as? String
         self.body = newPFObject["body"] as? String
         self.sendDate = newPFObject["sendDate"] as? NSDate

@@ -20,27 +20,22 @@ class ActivityViewController:UIViewController {
     var activityToBeDisplay:Activity?
     var image:UIImage?
     @IBOutlet var followButton: UIButton!
+    @IBOutlet var storyButton: UIButton!
     @IBOutlet var activityIconView: UIImageView!
     @IBOutlet var embededPosterCollectionView: UIView!
     @IBOutlet var cancelButton: UIButton!
-    
-    @IBAction func cancelAction(sender: UIButton) {
-        let followUp = PFObject(className: "FollowUp")
-        let activity = PFObject(withoutDataWithClassName: "Activity", objectId: self.activityToBeDisplay?.ID)
-        followUp["Channel"] = activity
-        followUp["Follower"] = PFUser.currentUser()
-        followUp.deleteInBackgroundWithBlock { (ok, error) -> Void in
-            println("\(activity.objectId) id:\(PFUser.currentUser().objectId)")
-            if error == nil {
-                self.cancelButton.hidden = true
-                self.isFollowedUP = false
-                self.changeTitleForGeneralButton()
-                NSNotificationCenter.defaultCenter().postNotification(NSNotification(name: "cancelFollowUp", object: nil))
-            }
-        }
-    }
-   
     override func viewDidLoad() {
+        self.followButton.layer.cornerRadius = 5
+        self.followButton.layer.masksToBounds = true
+        self.storyButton.layer.cornerRadius = 5
+        self.storyButton.layer.masksToBounds = true
+        self.activityIconView.layer.cornerRadius = 10
+        self.activityIconView.layer.masksToBounds = true
+        self.cancelButton.layer.cornerRadius = 8
+        self.cancelButton.layer.masksToBounds = true
+        self.activityTagsLabel.layer.cornerRadius = 3
+        self.activityTagsLabel.layer.masksToBounds = true
+        
         super.viewDidLoad()
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "分享", style: UIBarButtonItemStyle.Bordered, target: self, action: Selector("share:"))
         
@@ -68,8 +63,43 @@ class ActivityViewController:UIViewController {
         })
         
         changeTitleForGeneralButton()
-       
+        
     }
+    @IBAction func cancelAction(sender: UIButton) {
+        let followUp = PFObject(className: "FollowUp")
+        let activity = PFObject(withoutDataWithClassName: "Activity", objectId: self.activityToBeDisplay?.ID)
+        let followUpQuery = PFQuery(className: "FollowUp")
+        followUpQuery.whereKey("Channel", equalTo: activity)
+        followUpQuery.whereKey("Follower", equalTo: PFUser.currentUser())
+        followUpQuery.findObjectsInBackgroundWithBlock {[weak self] (results, error) -> Void in
+            if error != nil{
+                
+                
+            }else{
+                for r in results   {
+                    let pfR = (r as PFObject)
+                    pfR.deleteInBackgroundWithBlock({(ok, error) -> Void in
+                        if error != nil {
+                            
+                        }
+                        else{
+                            if ok {
+                                println("Delete Done")
+                                self!.cancelButton.hidden = true
+                                self!.isFollowedUP = false
+                                self!.changeTitleForGeneralButton()
+                                NSNotificationCenter.defaultCenter().postNotification(NSNotification(name: "cancelFollowUp", object: nil))
+                            }
+                            
+                        }
+                        
+                    })
+                }
+            }
+        }
+    }
+   
+    
     func changeTitleForGeneralButton(){
         if self.isFollowedUP == true {
             self.followButton.setTitle("添加到日历  📅", forState: UIControlState.Normal)
@@ -145,6 +175,10 @@ class ActivityViewController:UIViewController {
                 if segue.identifier == "Create Experience"{
                     var createExperienceVC = segue.destinationViewController as CreateNewExperienceViewController
                     createExperienceVC.relatedActivity = self.activityToBeDisplay
+                }
+                else if segue.identifier == "Embed Segue Outer Experience"{
+                    var outerExpTVC = segue.destinationViewController as OuterExperienceTVController
+                    outerExpTVC.activityForExperience = self.activityToBeDisplay
                 }
             }
 //        if segue.identifier == "Embed Poster Segue" {

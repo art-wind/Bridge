@@ -14,7 +14,7 @@ class DialogCell: UITableViewCell {
     @IBOutlet var messageBackgroundView: UIImageView!
     @IBOutlet var messageContentTextView: UITextView!
     var maximumSize:CGSize = CGSize(width: 150, height: 1000)
-    let padding:CGFloat = 20
+    let padding:CGFloat = 10
     var exactSize:CGSize = CGSize(width: 0, height: 0)
     let magicNumber:CGFloat = 50
     let paddingInset:CGFloat = 5
@@ -68,7 +68,7 @@ class DialogCell: UITableViewCell {
             self.iconImageView.frame.origin.y = padding
                         self.messageContentTextView.frame = CGRect(origin: CGPoint(x: 3 * padding + magicNumber, y: padding),
                 size: exactSize)
-            self.messageContentTextView.frame = CGRect(origin: CGPoint(x: 3*padding + magicNumber, y: padding),size: exactSize)
+            self.messageContentTextView.frame = CGRect(origin: CGPoint(x: 3*padding + magicNumber, y:padding),size: exactSize)
             
             exactSize.width += 1.5 * padding
             exactSize.height += padding

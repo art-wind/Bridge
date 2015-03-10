@@ -17,9 +17,11 @@
 		331043401A945BB100093EAF /* buddy.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3310433D1A945BB100093EAF /* buddy.jpg */; };
 		331043411A945BB100093EAF /* running.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3310433E1A945BB100093EAF /* running.jpg */; };
 		331043421A945BB100093EAF /* window.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3310433F1A945BB100093EAF /* window.jpg */; };
+		3311803E1AAE02FD00C24C22 /* LogoffOrganizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3311803D1AAE02FD00C24C22 /* LogoffOrganizationViewController.swift */; };
 		3315F5FA1AAAD5BF005F7C2E /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3315F5F91AAAD5BF005F7C2E /* RegisterViewController.swift */; };
 		3315F5FC1AAADA9E005F7C2E /* OrganizationLogonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3315F5FB1AAADA9E005F7C2E /* OrganizationLogonViewController.swift */; };
 		3317691A1A9B47FA002EB2F6 /* DialogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 331769191A9B47FA002EB2F6 /* DialogViewController.swift */; };
+		331C218C1AAC448100235D89 /* HomePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 331C218B1AAC448100235D89 /* HomePageViewController.swift */; };
 		33219CC91AA5684900DE8DFA /* ExperienceTViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33219CC71AA5684900DE8DFA /* ExperienceTViewCell.swift */; };
 		33219CCA1AA5684900DE8DFA /* ExperienceTViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 33219CC81AA5684900DE8DFA /* ExperienceTViewCell.xib */; };
 		3321E0211AA450840057683D /* RecommendationTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3321E0201AA450840057683D /* RecommendationTableVC.swift */; };
@@ -72,6 +74,9 @@
 		337786791A9C109C004D0093 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 337786781A9C109C004D0093 /* SystemConfiguration.framework */; };
 		3377867B1A9C10A4004D0093 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3377867A1A9C10A4004D0093 /* libz.dylib */; };
 		3377867D1A9C10AC004D0093 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3377867C1A9C10AC004D0093 /* libsqlite3.dylib */; };
+		338A241F1AAB4C29001F3058 /* OuterExperienceTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338A241D1AAB4C29001F3058 /* OuterExperienceTVCell.swift */; };
+		338A24201AAB4C29001F3058 /* OuterExperienceTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 338A241E1AAB4C29001F3058 /* OuterExperienceTVCell.xib */; };
+		338A24221AAB4EB8001F3058 /* OuterExperienceTVController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338A24211AAB4EB8001F3058 /* OuterExperienceTVController.swift */; };
 		338B1B941AA04CF6008F67A1 /* StartDialogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338B1B931AA04CF6008F67A1 /* StartDialogViewController.swift */; };
 		339655CA1AA16ED400C1388C /* ThumbnailForUserCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 339655C81AA16ED400C1388C /* ThumbnailForUserCVCell.swift */; };
 		339655CB1AA16ED400C1388C /* ThumbnailForUserCVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 339655C91AA16ED400C1388C /* ThumbnailForUserCVCell.xib */; };
@@ -114,9 +119,11 @@
 		3310433D1A945BB100093EAF /* buddy.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = buddy.jpg; sourceTree = "<group>"; };
 		3310433E1A945BB100093EAF /* running.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = running.jpg; sourceTree = "<group>"; };
 		3310433F1A945BB100093EAF /* window.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = window.jpg; sourceTree = "<group>"; };
+		3311803D1AAE02FD00C24C22 /* LogoffOrganizationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogoffOrganizationViewController.swift; sourceTree = "<group>"; };
 		3315F5F91AAAD5BF005F7C2E /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		3315F5FB1AAADA9E005F7C2E /* OrganizationLogonViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrganizationLogonViewController.swift; sourceTree = "<group>"; };
 		331769191A9B47FA002EB2F6 /* DialogViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DialogViewController.swift; sourceTree = "<group>"; };
+		331C218B1AAC448100235D89 /* HomePageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomePageViewController.swift; sourceTree = "<group>"; };
 		33219CC71AA5684900DE8DFA /* ExperienceTViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExperienceTViewCell.swift; sourceTree = "<group>"; };
 		33219CC81AA5684900DE8DFA /* ExperienceTViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExperienceTViewCell.xib; sourceTree = "<group>"; };
 		3321E0201AA450840057683D /* RecommendationTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecommendationTableVC.swift; sourceTree = "<group>"; };
@@ -170,6 +177,9 @@
 		337786781A9C109C004D0093 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		3377867A1A9C10A4004D0093 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		3377867C1A9C10AC004D0093 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		338A241D1AAB4C29001F3058 /* OuterExperienceTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OuterExperienceTVCell.swift; sourceTree = "<group>"; };
+		338A241E1AAB4C29001F3058 /* OuterExperienceTVCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OuterExperienceTVCell.xib; sourceTree = "<group>"; };
+		338A24211AAB4EB8001F3058 /* OuterExperienceTVController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OuterExperienceTVController.swift; sourceTree = "<group>"; };
 		338B1B931AA04CF6008F67A1 /* StartDialogViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartDialogViewController.swift; sourceTree = "<group>"; };
 		339655C81AA16ED400C1388C /* ThumbnailForUserCVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThumbnailForUserCVCell.swift; sourceTree = "<group>"; };
 		339655C91AA16ED400C1388C /* ThumbnailForUserCVCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ThumbnailForUserCVCell.xib; sourceTree = "<group>"; };
@@ -243,6 +253,7 @@
 				33BBD6161A95A176005F1FB0 /* CameraViewController.swift */,
 				335B97961A97320900A17DDD /* IBeaconViewController.swift */,
 				33D5B27A1A9AF3BA00E68CE2 /* CategoryTableViewController.swift */,
+				331C218B1AAC448100235D89 /* HomePageViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -270,6 +281,8 @@
 				339655C91AA16ED400C1388C /* ThumbnailForUserCVCell.xib */,
 				33219CC71AA5684900DE8DFA /* ExperienceTViewCell.swift */,
 				33219CC81AA5684900DE8DFA /* ExperienceTViewCell.xib */,
+				338A241D1AAB4C29001F3058 /* OuterExperienceTVCell.swift */,
+				338A241E1AAB4C29001F3058 /* OuterExperienceTVCell.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -334,6 +347,7 @@
 				3315F5FB1AAADA9E005F7C2E /* OrganizationLogonViewController.swift */,
 				3315F5F91AAAD5BF005F7C2E /* RegisterViewController.swift */,
 				333AA1801AAAA66100DB5648 /* LogonViewController.swift */,
+				3311803D1AAE02FD00C24C22 /* LogoffOrganizationViewController.swift */,
 			);
 			name = System;
 			sourceTree = "<group>";
@@ -425,9 +439,10 @@
 			children = (
 				333AA1891AAAA77900DB5648 /* ActivityOverViewTableViewController.swift */,
 				333AA18B1AAAA7E600DB5648 /* CreateActivityViewController.swift */,
-				333AA18D1AAAA7E600DB5648 /* OrganizationActivityViewController.swift */,
 				333AA18E1AAAA7E600DB5648 /* OrganiztionActivityOverviewTVC.swift */,
 				333AA1731AAAA57D00DB5648 /* ActivityViewController.swift */,
+				333AA18D1AAAA7E600DB5648 /* OrganizationActivityViewController.swift */,
+				338A24211AAB4EB8001F3058 /* OuterExperienceTVController.swift */,
 			);
 			name = Activity;
 			sourceTree = "<group>";
@@ -575,6 +590,7 @@
 				33B77DE21A937689008E70DF /* Images.xcassets in Resources */,
 				331043421A945BB100093EAF /* window.jpg in Resources */,
 				337786651A9C0DFA004D0093 /* ActivityOverViewTableViewCell.xib in Resources */,
+				338A24201AAB4C29001F3058 /* OuterExperienceTVCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -612,11 +628,13 @@
 				333AA17A1AAAA5DB00DB5648 /* FriendDetailViewController.swift in Sources */,
 				333AA1781AAAA5C200DB5648 /* CreateNewExperienceViewController.swift in Sources */,
 				333AA17D1AAAA5F600DB5648 /* Experience.swift in Sources */,
+				331C218C1AAC448100235D89 /* HomePageViewController.swift in Sources */,
 				335B97971A97320900A17DDD /* IBeaconViewController.swift in Sources */,
 				333AA1911AAAA7E600DB5648 /* OrganizationActivityViewController.swift in Sources */,
 				333AA16E1AAAA56E00DB5648 /* Vector.swift in Sources */,
 				3365B4FB1A94C7660028325B /* PosterCellCollectionViewCell.swift in Sources */,
 				333AA1811AAAA66100DB5648 /* LogonViewController.swift in Sources */,
+				338A241F1AAB4C29001F3058 /* OuterExperienceTVCell.swift in Sources */,
 				333912871AA0128B00C28ACE /* Thumbnail.swift in Sources */,
 				33BBD6171A95A176005F1FB0 /* CameraViewController.swift in Sources */,
 				333AA1741AAAA57D00DB5648 /* ActivityViewController.swift in Sources */,
@@ -636,9 +654,11 @@
 				33219CC91AA5684900DE8DFA /* ExperienceTViewCell.swift in Sources */,
 				333AA1761AAAA5B300DB5648 /* FollowerCollectionVC.swift in Sources */,
 				333AA19A1AAAA84000DB5648 /* VectorHandler.swift in Sources */,
+				338A24221AAB4EB8001F3058 /* OuterExperienceTVController.swift in Sources */,
 				333AA16F1AAAA56E00DB5648 /* Activity.swift in Sources */,
 				330207871A9B1D6600B233F3 /* MessageCell.swift in Sources */,
 				333AA1901AAAA7E600DB5648 /* FriendOverviewTableVC.swift in Sources */,
+				3311803E1AAE02FD00C24C22 /* LogoffOrganizationViewController.swift in Sources */,
 				330E82E81AA9DA2D00014A8E /* CalenderHandler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

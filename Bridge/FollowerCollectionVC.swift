@@ -27,6 +27,9 @@ class FollowerCollectionVC: UICollectionViewController {
 
         // Do any additional setup after loading the view.
         let query:PFQuery = PFQuery(className: "FollowUp")
+        
+        
+        println("2 \(self.followersForActivity.ID)")
         query.whereKey("Channel",equalTo:PFObject(withoutDataWithClassName: "Activity", objectId: self.followersForActivity.ID))
         query.findObjectsInBackgroundWithBlock { (results, error) -> Void in
             for result in results{
@@ -80,15 +83,15 @@ class FollowerCollectionVC: UICollectionViewController {
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let rowIndex = indexPath.row
         self.selectedUser = self.users[rowIndex]
-//        performSegueWithIdentifier("Check User Detail", sender: self)
-        let friendDetailVC = FriendDetailViewController()
-        friendDetailVC.relatedUser = self.selectedUser
-        self.navigationController?.pushViewController(friendDetailVC, animated: true)
+        performSegueWithIdentifier("Check User Detail", sender: self)
+    
     }
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "Check User Detail"{
-            let friendDetailVC = segue.destinationViewController as  FriendDetailViewController
+            let naviController = segue.destinationViewController as UINavigationController
+            let  friendDetailVC = naviController.viewControllers[0] as FriendDetailViewController
             friendDetailVC.relatedUser = self.selectedUser
+            friendDetailVC.isSureAboutFriendship = false
         }
         
     }
