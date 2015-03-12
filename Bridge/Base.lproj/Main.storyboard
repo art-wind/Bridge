@@ -320,6 +320,9 @@
                                                             <exclude reference="ZJr-Au-G9h"/>
                                                         </mask>
                                                     </variation>
+                                                    <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
+                                                        <rect key="frame" x="499" y="5" width="287" height="30"/>
+                                                    </variation>
                                                 </textField>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="昵称" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wxw-8s-fTN">
                                                     <rect key="frame" x="8" y="11" width="289" height="21.5"/>
@@ -369,6 +372,9 @@
                                                         <mask key="constraints">
                                                             <exclude reference="7ES-iJ-cts"/>
                                                         </mask>
+                                                    </variation>
+                                                    <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
+                                                        <rect key="frame" x="499" y="40" width="287" height="30"/>
                                                     </variation>
                                                 </textField>
                                                 <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="xDE-mI-UxQ">

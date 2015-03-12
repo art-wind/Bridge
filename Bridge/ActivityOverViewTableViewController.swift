@@ -36,7 +36,6 @@ class ActivityOverViewTableViewController: ParentActivityOverviewTVC {
         query.addDescendingOrder("startDate")
         query.findObjectsInBackgroundWithBlock {(results, error) -> Void in
             self.recordsToBeFeteched = results.count
-            println("Length:  \(self.recordsToBeFeteched)")
             self.startFetch = true
             for result in results {
                 let object = result["Channel"] as PFObject
@@ -135,7 +134,6 @@ class ActivityOverViewTableViewController: ParentActivityOverviewTVC {
             let indexPath = self.tableView.indexPathForCell(sender as ActivityOverViewTableViewCell)!
             activityDetailVC.isFollowedUP = true
             activityDetailVC.activityToBeDisplay = self.relatedActivity[indexPath.row]
-            println(self.relatedActivity[indexPath.row].vector)
         }
     }
     

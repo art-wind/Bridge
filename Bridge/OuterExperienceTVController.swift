@@ -48,7 +48,7 @@ class OuterExperienceTVController: UITableViewController {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
         var tmp = self.expList.sorted {
-            return $0.sendDate!.timeIntervalSince1970 < $1.sendDate!.timeIntervalSince1970
+            return $0.sendDate!.timeIntervalSince1970 > $1.sendDate!.timeIntervalSince1970
         }
         self.expList = tmp
         return self.expList.count

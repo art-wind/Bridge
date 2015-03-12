@@ -13,6 +13,7 @@ class DialogHistoryViewController: UITableViewController,UISplitViewControllerDe
     var dialogIDToBeDisplayed:Dialog?
     var messagesLocalDB = [Message]()
     var opponentImage:UIImage = UIImage(named: "defaultIcon")!
+    var currentImage:UIImage = UIImage(named: "defaultIcon")!
     var computedDialog:Dialog?{
         get{
             return dialogIDToBeDisplayed
@@ -25,6 +26,13 @@ class DialogHistoryViewController: UITableViewController,UISplitViewControllerDe
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let currentUser = PFUser.currentUser()
+        let user = User(newPFUser: currentUser)
+        let imgData = user.imageIcon
+        imgData?.getDataInBackgroundWithBlock({[weak self] (data, error) -> Void in
+            self!.currentImage = UIImage(data: data)!
+            }
+        )
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("loadTheTableView:"), name: "newInputMessage", object: nil)
         
         
@@ -37,17 +45,18 @@ class DialogHistoryViewController: UITableViewController,UISplitViewControllerDe
     }
     func loadTheTableView(notification:NSNotification ){
 //        dialogues = [Message]()
-        var queryDialogsFromLocalDB = PFQuery(className: "Message")
-        queryDialogsFromLocalDB.whereKey("participants", containsAllObjectsInArray: [PFUser.currentUser()])
-        queryDialogsFromLocalDB.fromLocalDatastore()
-        queryDialogsFromLocalDB.findObjectsInBackgroundWithBlock { (dialogs, error) -> Void in
-            if error == nil {
-                for obj in dialogs {
-                    let dialog = obj as PFObject
-                }
-                self.tableView.reloadData()
-            }
-        }
+//        var queryDialogsFromLocalDB = PFQuery(className: "Message")
+//        queryDialogsFromLocalDB.whereKey("participants", containsAllObjectsInArray: [PFUser.currentUser()])
+//        queryDialogsFromLocalDB.fromLocalDatastore()
+//        queryDialogsFromLocalDB.findObjectsInBackgroundWithBlock { (dialogs, error) -> Void in
+//            if error == nil {
+//                for obj in dialogs {
+//                    let dialog = obj as PFObject
+//                }
+//                self.tableView.reloadData()
+//            }
+//        }
+        loadTheTableViewManually()
     }
     func loadTheTableViewManually(){
         self.messagesLocalDB = [Message]()
@@ -180,11 +189,15 @@ class DialogHistoryViewController: UITableViewController,UISplitViewControllerDe
         var message:Message = messagesLocalDB[indexPath.row]
 
         if message.source == PFUser.currentUser(){
-            cell.setViews(cell.frame.width,icon: UIImage(named: "minion")!, messageContent: message.content, backgroungImage: UIImage(named: "dialog_blue")!,isLeft:false)
+//            cell.setViews(cell.frame.width,icon: self.currentImage, messageContent: message.content, backgroungImage: UIImage(named: "dialog_blue")!,isLeft:false)
+            cell.setViews(cell.frame.width,icon: self.currentImage, messageContent: message.content, backgroungImage: UIImage(named: "self")!,isLeft:false)
         }
         else{
-            cell.setViews(cell.frame.width,icon: self.opponentImage, messageContent: message.content, backgroungImage: UIImage(named: "dialog_green")!,isLeft:true)
+//            cell.setViews(cell.frame.width,icon: self.opponentImage, messageContent: message.content, backgroungImage: UIImage(named: "dialog_green")!,isLeft:true)
+            cell.setViews(cell.frame.width,icon: self.opponentImage, messageContent: message.content, backgroungImage: UIImage(named: "opponent")!,isLeft:true)
         }
+
+
         return cell
     }
 

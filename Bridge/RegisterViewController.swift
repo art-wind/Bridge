@@ -142,7 +142,7 @@ class RegisterViewController: UITableViewController,UIImagePickerControllerDeleg
             println("L: \(length)")
             for index in 0..<length{
                 if selectedCatgories[index] == 1{
-                    stringToBeDisplayed += categories[index]
+                    stringToBeDisplayed += " \(categories[index])"
                     self.tags.append(categories[index])
                 }
             }

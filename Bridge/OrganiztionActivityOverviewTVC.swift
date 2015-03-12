@@ -36,8 +36,8 @@ class OrganiztionActivityOverviewTVC: ParentActivityOverviewTVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let logonUser = PFUser.currentUser()
-        let query = PFQuery(className: "Activity")
+//        let logonUser = PFUser.currentUser()
+//        let query = PFQuery(className: "Activity")
 //        query.whereKey("CreatedBy", equalTo: logonUser)
 //        query.findObjectsInBackgroundWithBlock { (results, error) -> Void in
 //            for result in results {
