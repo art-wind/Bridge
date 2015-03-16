@@ -31,11 +31,9 @@ class CalenderHandler {
         let comp = calendarForTest.components((.HourCalendarUnit | .MinuteCalendarUnit), fromDate: date!)
         var hour = comp.hour
         var minute = comp.minute
-        
-        let m = 3600*2
-        let overall = 3600 * hour + 60 * minute
-//        let overAllDouble = overall + 1 - 0.9
-        let endDate = startDate.dateByAddingTimeInterval(3600*2)
+        let overall = 3600 * hour + 60 * minute as NSInteger
+        let timeInterval = NSTimeInterval(overall)
+        let endDate = startDate.dateByAddingTimeInterval(timeInterval)
         event.startDate = startDate
         event.endDate = endDate
         event.notes = "\(withActivity.activityName) is held"
