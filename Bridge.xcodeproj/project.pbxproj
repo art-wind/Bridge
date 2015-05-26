@@ -152,7 +152,6 @@
 		333AA1941AAAA80E00DB5648 /* PosterDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PosterDetailViewController.swift; sourceTree = "<group>"; };
 		333AA1971AAAA82A00DB5648 /* Poster.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Poster.swift; sourceTree = "<group>"; };
 		333AA1991AAAA84000DB5648 /* VectorHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VectorHandler.swift; sourceTree = "<group>"; };
-		3342BDB71AAAA3DD0075278E /* Bridge-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Bridge-Bridging-Header.h"; sourceTree = "<group>"; };
 		33467A8C1A94766D00E8749C /* minion.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = minion.jpg; sourceTree = "<group>"; };
 		334B52A51A9D588F00562580 /* Form.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Form.xib; sourceTree = "<group>"; };
 		335B97941A9731E800A17DDD /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -478,7 +477,6 @@
 				333AA16C1AAAA56E00DB5648 /* Message.swift */,
 				333AA16D1AAAA56E00DB5648 /* User.swift */,
 				333AA17B1AAAA5F600DB5648 /* Experience.swift */,
-				3342BDB71AAAA3DD0075278E /* Bridge-Bridging-Header.h */,
 			);
 			name = Data;
 			sourceTree = "<group>";
